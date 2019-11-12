@@ -1,0 +1,8 @@
+.container-gif-item {
+    width: 100%;
+    background-color: rgba(255,88,0,0.19);
+}
+
+.container-gif-item .container-img img {
+    width: 100%;
+}
