@@ -5,8 +5,11 @@ import './LoaderContainer.css';
 function LoaderContainer({ isLoading, children}) {
 	return(
 		<div className="container-loader">
-			{isLoading ? <CircularProgress /> : null}
-			<div style={ isLoading ? { display: "none" } : {}}>{children}</div>
+			{isLoading ?
+				<div className="loader">
+					<CircularProgress />
+				</div> : null}
+			{children}
 		</div>
 	);
 }

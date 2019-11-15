@@ -2,7 +2,7 @@
 import React from 'react';
 import './App.css';
 import { GifGrid, SearchBar } from './components';
-import CircularProgress from "@material-ui/core/CircularProgress";
+import calculateParams from "./utils/calculateParams";
 
 const API_KEY = 'aCYx8eJP8FQAqLZHjjxu1PPyFz0kNMqO';
 const API_GIF_ID = '3o7WIydEMfY4J8q8Ew';
@@ -13,14 +13,17 @@ const API_TREND = 'http://api.giphy.com/v1/gifs/trending';
 const API_SEARCH = 'http://api.giphy.com/v1/gifs/search';
 
 const API_REQUEST = `${API_URL}?api_key=${API_KEY}&`;
-const API_REQUEST_GIF_ID = `${API_URL_GIF}/${API_GIF_ID}?api_key=${API_KEY}`;
-const API_REQUEST_TRENDS_GIF = `${API_TREND}?api_key=${API_KEY}`;
-const API_REQUEST_SEARCH_GIF = (q) => `${API_SEARCH}?api_key=${API_KEY}&q=${q}`;
+const API_REQUEST_GIF_ID = `${API_URL_GIF}/${API_GIF_ID}?api_key=${API_KEY}&`;
+const API_REQUEST_TRENDS_GIF = `${API_TREND}?api_key=${API_KEY}&`;
+const API_REQUEST_SEARCH_GIF = (q) => `${API_SEARCH}?api_key=${API_KEY}&q=${q}&`;
+
+const LIMIT_GIF = 10;
 
 const getRandomGif	= () => fetch(API_REQUEST).then(res => res.json());
 const getIdGif		= () => fetch(API_REQUEST_GIF_ID).then(res => res.json());
-const getTrendGif	= () => fetch(API_REQUEST_TRENDS_GIF).then(res => res.json());
-const getSearchGif	= (query) => fetch(API_REQUEST_SEARCH_GIF(query)).then(res => res.json());
+const getTrendGif	= (limit = LIMIT_GIF) => fetch(`${API_REQUEST_TRENDS_GIF}limit=${limit}`).then(res => res.json());
+const getSearchGif	= (query, limit = LIMIT_GIF) =>
+	fetch(`${API_REQUEST_SEARCH_GIF(query)}limit=${limit}`).then(res => res.json());
 
 class App extends React.Component {
 	constructor(props) {
@@ -31,15 +34,12 @@ class App extends React.Component {
 	}
 
 	componentDidMount = async () => {
-		const dataTrendsGif = await getTrendGif();
+		// const dataTrendsGif = await getTrendGif();
+		const dataTrendsGif = await getSearchGif('cats');
+		// calculateParams(dataTrendsGif.data);
 		this.setState({ data: dataTrendsGif.data });
 	};
 
-	/**
-	 * Поиск данных по ключевому слову
-	 * @param value - Ключевая фраза для поиска
-	 * @returns {Promise<void>}
-	 */
 	handleOnSearch = async (value) => {
 		const dataSearchGif = await getSearchGif(value);
 		this.setState({ data: dataSearchGif.data });
@@ -57,7 +57,7 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div style={{ width: '900px', margin: '0 auto' }}>
 				<SearchBar
 					onSearch={this.handleOnSearch}
 					onRandom={this.handleOnRandom}
