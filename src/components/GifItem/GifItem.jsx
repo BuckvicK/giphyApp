@@ -34,7 +34,7 @@ class GifItem extends React.Component {
 									<li className="link"><a href="/">2</a></li>
 								</ul>
 								<div className="copy-link">
-									{/*<input type="text" value="test" readOnly />*/}
+									<input type="text" value={images.original.url} readOnly />
 									<a
 										href={images.original.url}
 										target="_blank"

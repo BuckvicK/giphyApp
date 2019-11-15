@@ -4,8 +4,16 @@ function resizeInRow(row = [], MAX_WIDTH, MAX_HEIGHT) {
 	let k = MAX_WIDTH / curWidth;
 	// console.debug('[INITIAL]', `curWidth=${curWidth}`, `freeSpace=${freeSpace}`, `k=${k}`);
 	row.map((item) => {
-		item.images.fixed_height.width = (parseInt(item.images.fixed_height.width) * k).toString();
-		item.images.fixed_height.height = (parseInt(item.images.fixed_height.height) * k).toString();
+		let newWidth = parseInt(item.images.fixed_height.width) * k;
+		let newHeight = parseInt(item.images.fixed_height.height) * k;
+		if (MAX_HEIGHT && newHeight > MAX_HEIGHT) {
+			console.log('WARNING');
+			const down = MAX_HEIGHT / newHeight;
+			newWidth = newWidth * down;
+			newHeight = newHeight * down;
+		}
+		item.images.fixed_height.width = (newWidth).toString();
+		item.images.fixed_height.height = (newHeight).toString();
 		return item;
 	});
 	// curWidth = row.reduce((a, item) => a + parseInt(item.images.fixed_height.width), 0);
@@ -13,19 +21,19 @@ function resizeInRow(row = [], MAX_WIDTH, MAX_HEIGHT) {
 	// console.debug('[RESULT]', `curWidth=${curWidth}`, `freeSpace=${freeSpace}`);
 }
 
-function calculateParams(array = [], MAX_WIDTH_ROW = 900, MAX_HEIGHT_ROW = 500) {
+function calculateParams(array = [], MAX_WIDTH_ROW = 900, MAX_HEIGHT_ROW = 300) {
 	let rowWidth = 0;
 	array.reduce((accumulator, current, index, array) => {
 		if (rowWidth + parseInt(current.images.fixed_height.width) <= MAX_WIDTH_ROW) {
 			rowWidth += parseInt(current.images.fixed_height.width);
 			accumulator.push(current);
 		} else {
-			resizeInRow(accumulator, MAX_WIDTH_ROW, MAX_HEIGHT_ROW);
+			resizeInRow(accumulator, MAX_WIDTH_ROW);
 			accumulator = [current];
 			rowWidth = parseInt(current.images.fixed_height.width);
 		}
 		if (index === array.length - 1) {
-			resizeInRow(accumulator, MAX_WIDTH_ROW, MAX_HEIGHT_ROW);
+			resizeInRow(accumulator, MAX_WIDTH_ROW);
 		}
 		return accumulator;
 	}, []);
