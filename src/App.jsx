@@ -2,6 +2,7 @@
 import React from 'react';
 import './App.css';
 import { GifGrid, SearchBar } from './components';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const API_KEY = 'aCYx8eJP8FQAqLZHjjxu1PPyFz0kNMqO';
 const API_GIF_ID = '3o7WIydEMfY4J8q8Ew';
@@ -29,10 +30,10 @@ class App extends React.Component {
 		};
 	}
 
-	async componentDidMount() {
+	componentDidMount = async () => {
 		const dataTrendsGif = await getTrendGif();
 		this.setState({ data: dataTrendsGif.data });
-	}
+	};
 
 	/**
 	 * Поиск данных по ключевому слову
@@ -46,13 +47,11 @@ class App extends React.Component {
 
 	handleOnRandom = async () => {
 		const dataRandomGif = await getRandomGif();
-		console.log('RANDOM_GIF', dataRandomGif);
 		this.setState({ data: [dataRandomGif.data] });
 	};
 
 	handleOnTrends = async () => {
 		const dataTrendsGif = await getTrendGif();
-		// console.log('TRENDS', dataTrendsGif);
 		this.setState({ data: dataTrendsGif.data });
 	};
 
