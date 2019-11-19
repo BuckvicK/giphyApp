@@ -37,10 +37,9 @@ const API_URL_GIF = 'https://api.giphy.com/v1/gifs';
 const API_REQUEST = `${API_URL}?api_key=${API_KEY}&`;
 const API_REQUEST_ID_GIF = `${API_URL_GIF}/${API_GIF_ID}?api_key=${API_KEY}&`;
 
-
-
 const getRandomGif	= () => fetch(API_REQUEST).then(res => res.json());
 const getIdGif		= () => fetch(API_REQUEST_ID_GIF).then(res => res.json());
+
 
 class App extends React.Component {
 	constructor(props) {
@@ -60,6 +59,7 @@ class App extends React.Component {
 			data: data.data,
 			offset: data.pagination.count,
 		});
+		// window.addEventListener('scroll', this.handleScroll, true);
 	};
 
 	handleOnSearch = async (value) => {
@@ -110,10 +110,17 @@ class App extends React.Component {
 		this.setState({ data: newData, offset: newOffset });
 	};
 
+	handleScroll = async (event) => {
+		const { scrollY, innerHeight } = window;
+		const { offsetHeight } = document.documentElement;
+		if ((scrollY + innerHeight) > offsetHeight * 0.98) {
+			await this.handleMore();
+		}
+	};
+
 	render() {
-		console.log(this.state);
 		return (
-			<div style={{ width: '900px', margin: '0 auto' }}>
+			<div onScroll={() => console.log('scroll')} onScrollCapture={console.log}>
 				<SearchBar
 					onSearch={this.handleOnSearch}
 					onRandom={this.handleOnRandom}
@@ -127,7 +134,7 @@ class App extends React.Component {
 						color="primary"
 						onClick={this.handleMore}
 					>
-						MORE
+						Загрузить ещё...
 					</Button>
 				</div>
 			</div>

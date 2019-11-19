@@ -1,0 +1,37 @@
+.container-search-bar {
+    width: 100%;
+    /*position: relative;*/
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.container-search-bar__search-input input {
+    padding-left: 10px;
+}
+
+.container-search-bar__search-input,
+.container-search-bar__search-button,
+.container-search-bar__trends-button,
+.container-search-bar__random-button {
+    width: 25%;
+    margin-bottom: 5px;
+}
+
+.container-search-bar__search-input div,
+.container-search-bar__search-button button,
+.container-search-bar__trends-button button,
+.container-search-bar__random-button button {
+    width: 100%;
+}
+
+@media screen and (max-width: 380px) {
+    .container-search-bar__search-input,
+    .container-search-bar__search-button {
+        width: 100%;
+    }
+    .container-search-bar__trends-button,
+    .container-search-bar__random-button {
+        width: 50%;
+    }
+}

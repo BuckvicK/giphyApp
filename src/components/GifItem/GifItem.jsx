@@ -2,18 +2,26 @@
 import React from 'react';
 import LoaderContainer from "../LoaderContainer";
 import * as PropTypes from 'prop-types';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import './GifItem.css';
 
 class GifItem extends React.Component {
 	state = {
 		isLoading: true,
+		isCopy: false,
 	};
 
+	toggleLoading = isLoading => this.setState({ isLoading });
+
+	toggleIsCopy = (text, isCopy) => this.setState({ isCopy });
+
 	render() {
-		const { slug, images, username, import_datetime } = this.props.gifObject;
+		const { slug, images, title } = this.props.gifObject;
 		const { url, height, width } = images.fixed_height;
-		const { isLoading } = this.state;
+		const { isLoading, isCopy } = this.state;
+
+		const copy_url = images.original.url.split('?')[0];
 
 		// console.log(this.props.gifObject);
 		return (
@@ -25,8 +33,7 @@ class GifItem extends React.Component {
 					>
 						<div className="visible-hover">
 							<div className="container-user-info">
-								<span>{`${username ? username : 'anonymous'}`}</span>
-								<span>{`${import_datetime.toString().split(' ')[0]}`}</span>
+								<span>{`${title}`}</span>
 							</div>
 							<div>
 								<ul className="container-links" style={{ display: "none"}}>
@@ -34,14 +41,12 @@ class GifItem extends React.Component {
 									<li className="link"><a href="/">2</a></li>
 								</ul>
 								<div className="copy-link">
-									<input type="text" value={images.original.url} readOnly />
-									<a
-										href={images.original.url}
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										Go to original
-									</a>
+									<input type="text" value={copy_url} readOnly />
+								</div>
+								<div className="copy-link">
+									<CopyToClipboard text={copy_url} onCopy={this.toggleIsCopy}>
+										<span>{isCopy ? 'Success!' : 'Copy link'}</span>
+									</CopyToClipboard>
 								</div>
 							</div>
 							<div className="container-copyright">
@@ -52,7 +57,7 @@ class GifItem extends React.Component {
 							src={url}
 							alt={slug}
 							style={{ width: `${width}px`, height: `${height}px`}}
-							onLoad={() => this.setState({ isLoading: false })}
+							onLoad={() => this.toggleLoading(false)}
 						/>
 					</div>
 				</LoaderContainer>
