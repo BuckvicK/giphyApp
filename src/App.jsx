@@ -64,7 +64,7 @@ class App extends React.Component {
 
 	handleOnSearch = async (value) => {
 		const dataSearch = await getSearchGif(value);
-		console.log(dataSearch);
+		// console.log(dataSearch);
 		this.setState({
 			data: dataSearch.data,
 			offset: dataSearch.pagination.count,
@@ -84,7 +84,7 @@ class App extends React.Component {
 
 	handleOnRandom = async () => {
 		const dataRandom = await getRandomGif();
-		console.log(dataRandom);
+		// console.log(dataRandom);
 		this.setState({
 			data: [dataRandom.data]
 		});
@@ -120,7 +120,7 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<div onScroll={() => console.log('scroll')} onScrollCapture={console.log}>
+			<div>
 				<SearchBar
 					onSearch={this.handleOnSearch}
 					onRandom={this.handleOnRandom}
