@@ -1,0 +1,7 @@
+const DB_USER = '<DB_USER>';
+const DB_PASS = '<DB_PASSWORD>';
+const URL = `<URL_TO_MONGO_DB_BASE>`;
+
+module.exports = {
+	URL,
+};

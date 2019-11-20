@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.6.1",
+    "express": "^4.17.1",
+    "mongodb": "^3.3.4",
     "prop-types": "latest",
     "react": "^16.11.0",
     "react-copy-to-clipboard": "^5.0.2",
@@ -14,7 +16,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "api": "node --inspect api/app.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -30,5 +33,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "config": "^3.2.4"
   }
 }
