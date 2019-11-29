@@ -1,7 +1,9 @@
 const DB_USER = '<DB_USER>';
 const DB_PASS = '<DB_PASSWORD>';
+const API_KEY = '<API_KEY>';
 const URL = `<URL_TO_MONGO_DB_BASE>`;
 
 module.exports = {
 	URL,
+	API_KEY,
 };

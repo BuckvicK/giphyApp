@@ -7,12 +7,6 @@ const apiRouters = require('./routers/apiRouters');
 
 app.use('/api', apiRouters);
 
-app.get('/', (req, res) => {
-	// console.log('TEST');
-	res.send('Hello World!');
-	// console.log(req);
-});
-
 app.listen(PORT, () => console.log(`\
 Server app listening on PORT ${PORT}!
 http://localhost:${PORT}\
