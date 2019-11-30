@@ -1,3 +1,9 @@
+/**
+ *
+ * @param row - Array images for changed size
+ * @param MAX_WIDTH - Max width row
+ * @param MAX_HEIGHT - Max height row *** While there is this signature - it does not count ***
+ */
 function resizeInRow(row = [], MAX_WIDTH, MAX_HEIGHT) {
 	let curWidth = row.reduce((a, item) => a + parseInt(item.images.fixed_height.width), 0);
 	// let freeSpace = MAX_WIDTH - curWidth;
@@ -21,6 +27,13 @@ function resizeInRow(row = [], MAX_WIDTH, MAX_HEIGHT) {
 	// console.debug('[RESULT]', `curWidth=${curWidth}`, `freeSpace=${freeSpace}`);
 }
 
+/**
+ *
+ * @param array - Array images
+ * @param MAX_WIDTH_ROW - Max width row
+ * @param MAX_HEIGHT_ROW - Max height row
+ * @returns {Array} - Result array with changed width and height in images
+ */
 function calculateParams(array = [], MAX_WIDTH_ROW = 900, MAX_HEIGHT_ROW = 300) {
 	let rowWidth = 0;
 	array.reduce((accumulator, current, index, array) => {

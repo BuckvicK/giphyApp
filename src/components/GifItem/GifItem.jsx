@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import LoaderContainer from "../LoaderContainer";
 import * as PropTypes from 'prop-types';
@@ -23,7 +22,6 @@ class GifItem extends React.Component {
 
 		const copy_url = images.original.url.split('?')[0];
 
-		// console.log(this.props.gifObject);
 		return (
 			<div className="container-gif-item">
 				<LoaderContainer isLoading={isLoading}>
@@ -50,7 +48,7 @@ class GifItem extends React.Component {
 								</div>
 							</div>
 							<div className="container-copyright">
-								<span>Source - GIPHY 2019 year</span>
+								<span>Source - GIPHY</span>
 							</div>
 						</div>
 						<img

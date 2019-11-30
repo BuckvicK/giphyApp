@@ -3,8 +3,6 @@ import Button from "@material-ui/core/Button";
 import { GifGrid, SearchBar } from './components';
 import { getRandomGif, getTrendGif, getSearchGif } from "./utils/apiRequest";
 
-import './App.css';
-
 class App extends React.Component {
 	constructor(props) {
 		super(props);
