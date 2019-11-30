@@ -13,18 +13,14 @@ function handleSearch(req, res) {
 			offset,
 		}
 	}, function (error, response, body) {
-		if (!error && response.statusCode === 200) {
-			res.send(body);
-		} else {
-			res.send(body);
-		}
+		res.send(body);
 	});
 }
 
 function handleTrends(req, res) {
 	const { limit, offset } = req.query;
 	const url = `${apiPath.API_REQUEST_TRENDS_GIF}`;
-	const test = request({
+	request({
 		method: 'GET',
 		url: url,
 		qs: {
@@ -32,12 +28,7 @@ function handleTrends(req, res) {
 			offset,
 		}
 	}, function (error, response, body) {
-		if (!error && response.statusCode === 200) {
-			console.log(body);
-			res.send(body);
-		} else {
-			res.send(body);
-		}
+		res.send(body);
 	});
 }
 
@@ -52,12 +43,7 @@ function handleRandom(req, res) {
 			offset,
 		}
 	}, function (error, response, body) {
-		if (!error && response.statusCode === 200) {
-			console.log(body);
-			res.send(body);
-		} else {
-			res.send(body);
-		}
+		res.send(body);
 	});
 }
 

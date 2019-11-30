@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import Button from "@material-ui/core/Button";
 import { GifGrid, SearchBar } from './components';
@@ -14,6 +13,7 @@ class App extends React.Component {
 			offset: 0,
 			searchValue: '',
 			currentGif: getTrendGif,
+			loadMore: false,
 		};
 	}
 
@@ -24,7 +24,7 @@ class App extends React.Component {
 			data: data.data,
 			offset: data.pagination.count,
 		});
-		// window.addEventListener('scroll', this.handleScroll, true);
+		window.addEventListener('scroll', this.handleScroll, true);
 	};
 
 	handleOnSearch = async (value) => {
@@ -70,17 +70,17 @@ class App extends React.Component {
 			newData = this.state.data.concat(dataTrends.data);
 		} else if (currentGif === getRandomGif) {
 			const dataRandom = await getRandomGif();
-			// newOffset = offset + dataRandom.pagination.count;
 			newData = this.state.data.concat(dataRandom.data);
 		}
-		this.setState({ data: newData, offset: newOffset });
+		this.setState({ data: newData, offset: newOffset, loadMore: false });
 	};
 
-	handleScroll = async (event) => {
+	handleScroll = async () => {
 		const { scrollY, innerHeight } = window;
 		const { offsetHeight } = document.documentElement;
-		if ((scrollY + innerHeight) > offsetHeight * 0.98) {
-			await this.handleMore();
+		const { loadMore } = this.state;
+		if (loadMore === false && (scrollY + innerHeight) > offsetHeight * 0.98) {
+			this.setState({ loadMore: true}, this.handleMore);
 		}
 	};
 
@@ -92,7 +92,10 @@ class App extends React.Component {
 					onRandom={this.handleOnRandom}
 					onTrends={this.handleOnTrends}
 				/>
-				<GifGrid arrayData={this.state.data}/>
+				<GifGrid
+					arrayData={this.state.data}
+					placeholder="Нет данных для отображения..."
+				/>
 				<div className="container-button-more">
 					<Button
 						style={{ width: '100%', height: '70px' }}
