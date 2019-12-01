@@ -1,5 +1,8 @@
 console.clear();
 
+console.log(process.env.API_KEY);
+console.log(process.env.API_PORT);
+
 const express = require('express');
 const app = express();
 const config = require('./config');
