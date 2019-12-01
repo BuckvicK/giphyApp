@@ -7,4 +7,5 @@ const URL = `<URL_TO_MONGO_DB_BASE>`;
 module.exports = {
 	URL,
 	API_KEY,
+	API_PORT,
 };
