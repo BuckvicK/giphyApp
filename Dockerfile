@@ -8,6 +8,5 @@ COPY package*.json ./
 RUN npm install
 COPY ./ ./
 EXPOSE 3001
-ENV API_KEY=aCYx8eJP8FQAqLZHjjxu1PPyFz0kNMqO
 
 CMD ["npm", "run", "api"]
