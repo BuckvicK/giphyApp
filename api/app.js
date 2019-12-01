@@ -2,7 +2,8 @@ console.clear();
 
 const express = require('express');
 const app = express();
-const PORT = 3001;
+const config = require('./config');
+const PORT = config.API_PORT;
 const apiRouters = require('./routers/apiRouters');
 
 app.use('/api', apiRouters);
@@ -12,8 +13,6 @@ Server app listening on PORT ${PORT}!
 http://localhost:${PORT}\
 `));
 
-// const config = require('./config');
-//
 // const MongoClient = require('mongodb').MongoClient;
 // const mongoClient = new MongoClient(config.URL, { useNewUrlParser: true, useUnifiedTopology: true });
 //
