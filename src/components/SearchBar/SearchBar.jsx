@@ -1,31 +1,32 @@
 import React, { useState } from 'react';
 import Input from "@material-ui/core/Input";
-import Button from "@material-ui/core/Button";
 import './SearchBar.css';
 
-function SearchBar({ onSearch, onTrends, onRandom }) {
+function SearchBar({ onTrends, onRandom, onSearch, active }) {
 	const [search, setSearch] = useState('');
+	const cn = {
+		trends: active === 'trends' ? "active" : "",
+		random: active === 'random' ? "active" : "",
+		search: active === 'search' ? "active" : "",
+	};
 
 	return (
-		<div className="container-search-bar">
-			<div className={"container-search-bar__search-input"}>
-				<Input
-					onChange={e => setSearch(e.target.value)}
-					value={search}
-					placeholder="Cats..."
-					variant="outlined"
-				/>
-			</div>
-			<div className={"container-search-bar__search-button"}>
-				<Button variant="contained" color="primary" onClick={() => onSearch(search)}>Поиск GIF</Button>
-			</div>
-			<div className={"container-search-bar__trends-button"}>
-				<Button variant="contained" color="primary" onClick={onTrends}>Трендовые GIF</Button>
-			</div>
-			<div className={"container-search-bar__random-button"}>
-				<Button variant="contained" color="primary" onClick={onRandom}>Рандомная GIF</Button>
-			</div>
-		</div>
+		<nav className="container-search-bar">
+			<ul>
+				<li className={cn.trends} onClick={onTrends}>Trends</li>
+				<li className={cn.random} onClick={onRandom}>Random</li>
+				<li className={`container-search-bar__input ${cn.search}`}>
+					<Input
+						onChange={e => setSearch(e.target.value)}
+						value={search}
+						placeholder="Cats..."
+						variant="outlined"
+						onKeyDown={(e) => e.key === 'Enter' ? onSearch(search) : ''}
+					/>
+					<i className="fas fa-search" onClick={() => onSearch(search)}/>
+				</li>
+			</ul>
+		</nav>
 	);
 }
 

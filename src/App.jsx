@@ -10,14 +10,15 @@ class App extends React.Component {
 			data: [],
 			offset: 0,
 			searchValue: '',
-			currentGif: getTrendGif,
+			currentGif: 'trends',
+			currentFunc: getTrendGif,
 			loadMore: false,
 		};
 	}
 
 	componentDidMount = async () => {
-		const { currentGif } = this.state;
-		const data = await currentGif();
+		const { currentFunc } = this.state;
+		const data = await currentFunc();
 		this.setState({
 			data: data.data,
 			offset: data.pagination.count,
@@ -32,7 +33,8 @@ class App extends React.Component {
 			data: dataSearch.data,
 			offset: dataSearch.pagination.count,
 			searchValue: value,
-			currentGif: getSearchGif,
+			currentFunc: getSearchGif,
+			currentGif: 'search',
 		});
 	};
 
@@ -41,7 +43,8 @@ class App extends React.Component {
 		this.setState({
 			data: dataTrends.data,
 			offset: dataTrends.pagination.count,
-			currentGif: getTrendGif,
+			currentFunc: getTrendGif,
+			currentGif: 'trends',
 		});
 	};
 
@@ -50,23 +53,24 @@ class App extends React.Component {
 		// console.log(dataRandom);
 		this.setState({
 			data: [dataRandom.data],
-			currentGif: getRandomGif,
+			currentFunc: getRandomGif,
+			currentGif: 'random',
 		});
 	};
 
 	handleMore = async () => {
-		const { offset, currentGif, searchValue } = this.state;
+		const { offset, currentFunc, searchValue } = this.state;
 		let newData = [];
 		let newOffset = offset;
-		if (currentGif === getSearchGif) {
+		if (currentFunc === getSearchGif) {
 			const dataSearch = await getSearchGif(searchValue, offset);
 			newOffset = offset + dataSearch.pagination.count;
 			newData = this.state.data.concat(dataSearch.data);
-		} else if (currentGif === getTrendGif) {
+		} else if (currentFunc === getTrendGif) {
 			const dataTrends = await getTrendGif(offset);
 			newOffset = offset + dataTrends.pagination.count;
 			newData = this.state.data.concat(dataTrends.data);
-		} else if (currentGif === getRandomGif) {
+		} else if (currentFunc === getRandomGif) {
 			const dataRandom = await getRandomGif();
 			newData = this.state.data.concat(dataRandom.data);
 		}
@@ -89,6 +93,7 @@ class App extends React.Component {
 					onSearch={this.handleOnSearch}
 					onRandom={this.handleOnRandom}
 					onTrends={this.handleOnTrends}
+					active={this.state.currentGif}
 				/>
 				<GifGrid
 					arrayData={this.state.data}
