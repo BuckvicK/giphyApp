@@ -13,7 +13,8 @@ class GifItem extends React.Component {
 
 	toggleLoading = isLoading => this.setState({ isLoading });
 
-	toggleIsCopy = (text, isCopy) => this.setState({ isCopy });
+	toggleIsCopy = (text, isCopy) => this.setState({ isCopy },
+			() => setTimeout(() => this.setState({ isCopy: false }), 1500));
 
 	render() {
 		const { slug, images, title } = this.props.gifObject;
