@@ -1,9 +1,12 @@
 GYPHY
 =========================
+[Demo](https://giphy-app.000webhostapp.com/)
+
 ![screen_trends](screenshots/trends.jpg)
 
 ![screenshot of sample](screenshots/search.jpg)
 =========================
+
 Used technologies:
 [fetch API](https://developer.mozilla.org/ru/docs/Web/API/Fetch_API),
 [React-hooks](https://ru.reactjs.org/docs/hooks-intro.html),
@@ -24,14 +27,20 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
+##
 
 ### `npm run api`
 ### `npm run api:inspect`
 
 Launches API for the application to work.
 Api can work in the Docker container.
-For use this need set environment `PORT` and `API_KEY`.
+For use this need set environment `PORT` and `API_KEY`, use for it `.env`
+file and use Docker flags `--env-file=.env` when run container.
+##
 
 ### `npm run build`
 
 Builds the app for production to the `build` folder.<br />
+##
+
+Author - [Artem Kojevnikov](https://github.com/BuckvicK).
