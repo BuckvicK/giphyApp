@@ -1,0 +1,13 @@
+.container-load-more {
+    text-align: center;
+    background-color: #f3f3f3;
+    color: #333333;
+    padding: 5px 0;
+    font-size: 2.5em;
+}
+
+.container-load-more:hover {
+    background-color: #c3c3c3;
+    color: #000000;
+    cursor: pointer;
+}

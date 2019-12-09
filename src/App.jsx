@@ -1,6 +1,5 @@
 import React from 'react';
-import Button from "@material-ui/core/Button";
-import { GifGrid, SearchBar } from './components';
+import { GifGrid, SearchBar, LoadMore } from './components';
 import { getRandomGif, getTrendGif, getSearchGif } from "./utils/apiRequest";
 
 class App extends React.Component {
@@ -28,7 +27,6 @@ class App extends React.Component {
 
 	handleOnSearch = async (value) => {
 		const dataSearch = await getSearchGif(value);
-		// console.log(dataSearch);
 		this.setState({
 			data: dataSearch.data,
 			offset: dataSearch.pagination.count,
@@ -50,7 +48,6 @@ class App extends React.Component {
 
 	handleOnRandom = async () => {
 		const dataRandom = await getRandomGif();
-		// console.log(dataRandom);
 		this.setState({
 			data: [dataRandom.data],
 			currentFunc: getRandomGif,
@@ -81,34 +78,27 @@ class App extends React.Component {
 		const { scrollY, innerHeight } = window;
 		const { offsetHeight } = document.documentElement;
 		const { loadMore } = this.state;
-		if (loadMore === false && (scrollY + innerHeight) > offsetHeight * 0.98) {
+		if (loadMore === false && (scrollY + innerHeight) > offsetHeight * 0.90) {
 			this.setState({ loadMore: true}, this.handleMore);
 		}
 	};
 
 	render() {
+		const { currentGif, data } = this.state;
+
 		return (
 			<div>
 				<SearchBar
 					onSearch={this.handleOnSearch}
 					onRandom={this.handleOnRandom}
 					onTrends={this.handleOnTrends}
-					active={this.state.currentGif}
+					active={currentGif}
 				/>
 				<GifGrid
-					arrayData={this.state.data}
+					arrayData={data}
 					placeholder="Нет данных для отображения..."
 				/>
-				<div className="container-button-more">
-					<Button
-						style={{ width: '100%', height: '70px' }}
-						variant="contained"
-						color="primary"
-						onClick={this.handleMore}
-					>
-						Загрузить ещё...
-					</Button>
-				</div>
+				<LoadMore handleMore={this.handleMore} />
 			</div>
 		);
 	}
